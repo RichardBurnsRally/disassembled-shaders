@@ -44,9 +44,13 @@ void main(in PS_INPUT input, out PS_OUTPUT output)
 
     // --- Linear Fog
     // line 14
+    // Apply the camera matrix
     float4 r9 = mul(input.position, look_at);
 
     // line 18
+    // The Z axis of the result vector r9 is the distance from the camera to
+    // the vertex. This calculation is for a linear fog coefficient, see
+    // https://developer.download.nvidia.com/assets/gamedev/docs/Fog2.pdf
     float r9x = fog_settings.y - r9.z;
     r9.z = r9x * fog_settings.z;
 
