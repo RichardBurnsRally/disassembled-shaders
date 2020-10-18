@@ -1,5 +1,7 @@
 `objects`: The original shader objects from the game
+
 `disassembled`: The disassembled original shaders
+
 `src`: The manually decompiled shader source
 
 Reference for vertex shaders:
