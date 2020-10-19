@@ -25,6 +25,7 @@ uniform float4 unknown_c65 : register(c65);
 uniform float4 unknown_c66 : register(c66);
 
 #include "LinearFogVSFragmentKanga.hlsl"
+#include "ScatteringVSFragmentKanga.hlsl"
 
 struct VS_INPUT
 {
@@ -53,33 +54,9 @@ VS_OUTPUT main(in VS_INPUT input)
     output.position = mul(input.position, proj_view_matrix);
     output.fog = linear_fog(input.position);
 
-    // --- Scattering
-    // line 11
-    //float4 view_vector = normalize(view_pos - input.position);
-    //float r0x = dot(view_vector, light_direction);
-    //r0x = min(r0x, unknown_c64.w);
-    //float r0y = r0x * r0x + unknown_c64.x;
+    ScatteringCoefficients scattering_coefficients = scattering(input.position);
 
-    // Line 24
-    float4 r1 = mul(input.position, view_matrix);
-    float r0z = mul(r1.z, unknown_c66.x);
-
-    // Line 33
-    r1 = mul(unknown_c61, (- r0z));
-    r1 = mul(r1, unknown_c64.y);
-    r1 = exp2(r1);
-
-    // Line 41
-    float3 r3 = r1 * unknown_c56;
-
-    // Line 44
-    r3.xyz = mul(r3, unknown_c65.x);
-
-    // Line 75+2
-    r3 = r3 * unknown_c55;
-    r3 = mul(r3, unknown_c55.w);
-
-    output.vcol.xyz = input.color.xyz * r3.xyz;
+    output.vcol.xyz = input.color.xyz * scattering_coefficients.r3.xyz;
     output.vcol.w = input.color.w;
 
     output.unknown_color.xyzw = 0.0;
