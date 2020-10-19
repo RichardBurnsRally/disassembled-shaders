@@ -1,23 +1,10 @@
-struct PS_INPUT
-{
-    float4 position : POSITION0;
-    float4 color : COLOR0;
-    float2 diffuse_1_uv : TEXCOORD0;
-    float2 diffuse_2_uv : TEXCOORD1;
-};
-
-struct PS_OUTPUT
-{
-    float4 position : POSITION0;
-    float fog : FOG;
-    float4 vcol : COLOR0;
-    float4 unknown_color : COLOR1;
-    float2 diffuse_1_uv : TEXCOORD0;
-    float2 diffuse_2_uv : TEXCOORD1;
-};
-
-uniform float4x4 view_matrix : register(c0);
-uniform float4x4 look_at : register(c20);
+// A matrix which when applied to a vector will transform it from world space
+// to clip space. That is, this should be the combined matrix constructed by:
+// projection_matrix * view_matrix
+uniform float4x4 proj_view_matrix : register(c0);
+// A matrix which when applied to a vector will transform it from world space
+// to view space
+uniform float4x4 view_matrix : register(c20);
 uniform float4 light_direction : register(c41);
 // x = fog start
 // y = fog end
@@ -37,28 +24,34 @@ uniform float4 unknown_c64 : register(c64);
 uniform float4 unknown_c65 : register(c65);
 uniform float4 unknown_c66 : register(c66);
 
-void main(in PS_INPUT input, out PS_OUTPUT output)
+#include "LinearFogVSFragmentKanga.hlsl"
+
+struct VS_INPUT
 {
+    // Vertex position, in world space
+    float4 position : POSITION0;
+    float4 color : COLOR0;
+    float2 diffuse_1_uv : TEXCOORD0;
+    float2 diffuse_2_uv : TEXCOORD1;
+};
+
+struct VS_OUTPUT
+{
+    float4 position : POSITION0;
+    float fog : FOG;
+    float4 vcol : COLOR0;
+    float4 unknown_color : COLOR1;
+    float2 diffuse_1_uv : TEXCOORD0;
+    float2 diffuse_2_uv : TEXCOORD1;
+};
+
+VS_OUTPUT main(in VS_INPUT input)
+{
+    VS_OUTPUT output;
+
     // line 22
-    output.position = mul(input.position, view_matrix);
-
-    // --- Linear Fog
-    // line 14
-    // Apply the camera matrix
-    float4 r9 = mul(input.position, look_at);
-
-    // line 18
-    // The Z axis of the result vector r9 is the distance from the camera to
-    // the vertex. This calculation is for a linear fog coefficient, see
-    // https://developer.download.nvidia.com/assets/gamedev/docs/Fog2.pdf
-    float r9x = fog_settings.y - r9.z;
-    r9.z = r9x * fog_settings.z;
-
-    // line 22
-    r9.z = min(r9.z, unknown_c64.x);
-
-    // line 28
-    output.fog = r9.z;
+    output.position = mul(input.position, proj_view_matrix);
+    output.fog = linear_fog(input.position);
 
     // --- Scattering
     // line 11
@@ -68,7 +61,7 @@ void main(in PS_INPUT input, out PS_OUTPUT output)
     //float r0y = r0x * r0x + unknown_c64.x;
 
     // Line 24
-    float4 r1 = mul(input.position, look_at);
+    float4 r1 = mul(input.position, view_matrix);
     float r0z = mul(r1.z, unknown_c66.x);
 
     // Line 33
@@ -92,4 +85,6 @@ void main(in PS_INPUT input, out PS_OUTPUT output)
     output.unknown_color.xyzw = 0.0;
     output.diffuse_1_uv = input.diffuse_1_uv;
     output.diffuse_2_uv = input.diffuse_2_uv;
+
+    return output;
 };
