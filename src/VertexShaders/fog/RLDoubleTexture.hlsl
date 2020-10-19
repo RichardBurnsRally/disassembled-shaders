@@ -34,7 +34,7 @@ VS_OUTPUT main(in VS_INPUT input)
     // line 31
     output.vcol.xyz = input.color.xyz * scattering_coefficients.r3.xyz;
     output.vcol.w = input.color.w;
-    output.unknown_color.xyzw = 0.0;
+    output.unknown_color = scattering_coefficients.r4;
 
     // line 37
     output.diffuse_1_uv = input.diffuse_1_uv;
