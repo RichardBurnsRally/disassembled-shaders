@@ -25,3 +25,5 @@ uniform float4 unknown_c63 : register(c63);
 uniform float4 unknown_c64 : register(c64);
 uniform float4 unknown_c65 : register(c65);
 uniform float4 unknown_c66 : register(c66);
+uniform float4 unknown_c76 : register(c76);
+uniform float4 unknown_c90 : register(c90);

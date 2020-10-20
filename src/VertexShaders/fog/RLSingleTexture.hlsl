@@ -5,14 +5,14 @@
 struct VS_INPUT
 {
     // Vertex position, in world space
-    float4 position : POSITION0;
+    float4 position : POSITION;
     float4 color : COLOR0;
     float2 diffuse_1_uv : TEXCOORD0;
 };
 
 struct VS_OUTPUT
 {
-    float4 position : POSITION0;
+    float4 position : POSITION;
     float fog : FOG;
     float4 vcol : COLOR0;
     float4 unknown_color : COLOR1;
