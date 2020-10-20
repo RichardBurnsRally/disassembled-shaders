@@ -26,4 +26,8 @@ uniform float4 unknown_c64 : register(c64);
 uniform float4 unknown_c65 : register(c65);
 uniform float4 unknown_c66 : register(c66);
 uniform float4 unknown_c76 : register(c76);
+// x = speed
+// yz = offset
+uniform float4 tex_anim_1 : register(c85);
+uniform float4 tex_anim_2 : register(c86);
 uniform float4 unknown_c90 : register(c90);
