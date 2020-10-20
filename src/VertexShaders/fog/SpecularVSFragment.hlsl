@@ -1,8 +1,10 @@
+// This performs a calculation for k_spec from the Beckmann model.
+// https://en.wikipedia.org/wiki/Specular_highlight#Beckmann_distribution
 float specular(in float3 normal, in float3 halfway_vector)
 {
     // line 12
-    float r0y = dot(normal, halfway_vector);
-    float r1 = 1 / r0y;
+    float n_dot_h = dot(normal, halfway_vector);
+    float r1 = 1 / n_dot_h;
     r1 = r1 * r1;
 
     // line 17
@@ -14,6 +16,6 @@ float specular(in float3 normal, in float3 halfway_vector)
 
     // line 24
     r0z = r0z * unknown_c90.y;
-    
+
     return r0z;
 };
