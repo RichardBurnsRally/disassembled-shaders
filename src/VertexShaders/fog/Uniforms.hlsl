@@ -8,11 +8,10 @@ uniform float4x4 proj_view_matrix : register(c0);
 // to view space
 uniform float4x4 view_matrix : register(c20);
 // Some sway params
+// X = Time?
+// Y = Wind strength?
 uniform float4 unknown_c32 : register(c32);
-// Some sway params
-uniform float4 unknown_c33 : register(c33);
-// Some sway thing
-uniform float4 unknown_c34 : register(c34);
+// Wind direction vector?
 uniform float4 unknown_c36 : register(c36);
 uniform float4 light_direction : register(c41);
 // x = fog start

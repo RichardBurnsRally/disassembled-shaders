@@ -9,6 +9,10 @@ struct VS_INPUT
     float4 position : POSITION;
     float4 color : COLOR0;
     float2 diffuse_1_uv : TEXCOORD0;
+    // Sway parameters:
+    // X = Amplitude multiplier
+    // Y = Angular frequency, radians per second.
+    // Z = Phase offset, radians.
     float3 sway_params : TEXCOORD1;
 };
 
@@ -25,11 +29,15 @@ VS_OUTPUT main(in VS_INPUT input)
 {
     VS_OUTPUT output;
 
-    float r1 = input.sway_params.y * unknown_c32.x + input.sway_params.z;
+    float sway_amplitude = input.sway_params.x;
+    float sway_angular_frequency = input.sway_params.y;
+    float sway_phase_offset = input.sway_params.z;
+
+    float r1 = sway_angular_frequency * unknown_c32.x + sway_phase_offset;
     float r0x = wrapped_sin(r1);
 
     // line 25
-    r0x = input.sway_params.x * r0x;
+    r0x = sway_amplitude * r0x;
 
     // line 32
     float4 r1_ = mul(unknown_c36, unknown_c32.y);
