@@ -57,6 +57,6 @@ ScatteringCoefficients scattering(in float4 vertex_world_position)
     coefficients.r4 = mul(r4, unknown_c55.w);
     r3 = r3 * unknown_c55;
     coefficients.r3 = mul(r3, unknown_c55.w);
-    
+
     return coefficients;
 };

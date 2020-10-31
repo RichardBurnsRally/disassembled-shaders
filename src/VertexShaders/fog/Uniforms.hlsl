@@ -7,6 +7,13 @@ uniform float4x4 proj_view_matrix : register(c0);
 // A matrix which when applied to a vector will transform it from world space
 // to view space
 uniform float4x4 view_matrix : register(c20);
+// Some sway params
+uniform float4 unknown_c32 : register(c32);
+// Some sway params
+uniform float4 unknown_c33 : register(c33);
+// Some sway thing
+uniform float4 unknown_c34 : register(c34);
+uniform float4 unknown_c36 : register(c36);
 uniform float4 light_direction : register(c41);
 // x = fog start
 // y = fog end
@@ -26,6 +33,13 @@ uniform float4 unknown_c64 : register(c64);
 uniform float4 unknown_c65 : register(c65);
 uniform float4 unknown_c66 : register(c66);
 uniform float4 unknown_c76 : register(c76);
+// x = cook torrance M
+uniform float4 cook_torrance_m : register(c77);
+// x = cook torrance B
+uniform float4 cook_torrance_b : register(c78);
+// x = cook torrance Ks * texture blend ^2
+// y = kf
+uniform float4 cook_torrance_ks : register(c79);
 // x = speed
 // yz = offset
 uniform float4 tex_anim_1 : register(c85);
