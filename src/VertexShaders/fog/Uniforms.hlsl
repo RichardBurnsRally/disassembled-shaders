@@ -31,7 +31,11 @@ uniform float4 unknown_c63 : register(c63);
 uniform float4 unknown_c64 : register(c64);
 uniform float4 unknown_c65 : register(c65);
 uniform float4 unknown_c66 : register(c66);
-uniform float4 unknown_c76 : register(c76);
+// x = 0.5
+// y = 1 : Used in Beckmann calculation
+// z = 4
+// w = 1
+uniform float4 beckmann_constants : register(c76);
 // x = cook torrance M
 uniform float4 cook_torrance_m : register(c77);
 // x = cook torrance B
@@ -43,4 +47,7 @@ uniform float4 cook_torrance_ks : register(c79);
 // yz = offset
 uniform float4 tex_anim_1 : register(c85);
 uniform float4 tex_anim_2 : register(c86);
-uniform float4 unknown_c90 : register(c90);
+// let m = surface roughness from the Beckmann distribution
+// x = -1/m^2 : "glossiness" from track settings or geom blocks
+// y = 1/(pi*m^2) : "alpha" from track settings or geom blocks
+uniform float4 beckmann_settings : register(c90);
