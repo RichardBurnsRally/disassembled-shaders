@@ -37,8 +37,8 @@ VS_OUTPUT main(in VS_INPUT input)
     output.unknown_color = scattering_coefficients.r4;
 
     // line 37
-    output.diffuse_1_uv = tex_anim_1.x * tex_anim_1.yz + input.diffuse_1_uv;
-    output.diffuse_2_uv = tex_anim_2.x * tex_anim_2.yz + input.diffuse_2_uv;
+    output.diffuse_1_uv = tex_anim_diffuse_1.x * tex_anim_diffuse_1.yz + input.diffuse_1_uv;
+    output.diffuse_2_uv = tex_anim_diffuse_2.x * tex_anim_diffuse_2.yz + input.diffuse_2_uv;
 
     return output;
 };

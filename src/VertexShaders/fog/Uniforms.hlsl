@@ -43,10 +43,12 @@ uniform float4 cook_torrance_b : register(c78);
 // x = cook torrance Ks * texture blend ^2
 // y = kf
 uniform float4 cook_torrance_ks : register(c79);
-// x = speed
-// yz = offset
-uniform float4 tex_anim_1 : register(c85);
-uniform float4 tex_anim_2 : register(c86);
+// Animated texture controls for diffuse and specular textures
+// x = time since start, in seconds
+// yz = direction vector for animation, length controls speed.
+uniform float4 tex_anim_diffuse_1 : register(c85);
+uniform float4 tex_anim_diffuse_2 : register(c86);
+uniform float4 tex_anim_specular : register(c86);
 // let m = surface roughness from the Beckmann distribution
 // x = -1/m^2 : "glossiness" from track settings or geom blocks
 // y = 1/(pi*m^2) : "alpha" from track settings or geom blocks
